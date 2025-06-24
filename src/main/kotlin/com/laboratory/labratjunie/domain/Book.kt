@@ -1,16 +1,16 @@
 package com.laboratory.labratjunie.domain
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
+import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
 import java.time.LocalDateTime
 
 @Entity
 @Table(name = "books")
 class Book(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -31,8 +31,10 @@ class Book(
     val price: Double,
 
     @Column(name = "created_date", nullable = false, updatable = false)
+    @CreatedDate
     val createdDate: LocalDateTime = LocalDateTime.now(),
 
-    @Column(name = "update_date", nullable = false)
-    val updateDate: LocalDateTime = LocalDateTime.now()
+    @Column(name = "modified_date")
+    @LastModifiedDate
+    var modifiedDate: LocalDateTime? = null
 )
